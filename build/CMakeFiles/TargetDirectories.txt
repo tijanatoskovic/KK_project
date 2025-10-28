@@ -1,0 +1,7 @@
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/intrinsics_gen.dir
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/omp_gen.dir
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/acc_gen.dir
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/DeadCodeElimination.dir
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/run_tests.dir
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/edit_cache.dir
+/home/toto/Desktop/kk_project/KK_project/build/CMakeFiles/rebuild_cache.dir
