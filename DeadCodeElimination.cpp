@@ -31,10 +31,9 @@ struct DeadCodeEliminationPass : public PassInfoMixin<DeadCodeEliminationPass> {
             }
         }
 
-    return (changed ? PreservedAnalyses::none() : PreservedAnalyses::all());
+        return (changed ? PreservedAnalyses::none() : PreservedAnalyses::all());
+    }
 };
-
-}
 
 } // namespace
 
