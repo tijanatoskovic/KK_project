@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-This project implements a **framework for LLVM optimization plugins**, such as **Dead Code Elimination (DCE) plugin**. The goal of the framework is to allow multiple custom LLVM passes to be developed, compiled, and run independently, enabling easy experimentation with compiler optimizations.
+This project implements a **framework for LLVM optimization plugins**, such as **Dead Code Elimination (DCE) plugin**, **InstCombine plugin**. The goal of the framework is to allow multiple custom LLVM passes to be developed, compiled, and run independently, enabling easy experimentation with compiler optimizations.
 
 The current project includes:
 
 1. **Dead Code Elimination (DCE)** – removes unused and side-effect-free instructions from LLVM IR.
-2. 
+2. **InstCombine** - optimizes and simplifies LLVM IR instructions by combining and transforming instruction sequences into more efficient forms without changing the program's semantics.
 
 ---
 
@@ -23,23 +23,27 @@ The current project includes:
 
 ---
 
+### Instruction Combining (InstCombine) Plugin
+
+- Simplifies and optimizes LLVM IR instructions by:
+  1. Reordering operands to canonical form (e.g., swapping add operands so constants are on the right).
+  2. Folding constant expressions (e.g., (x + c1) + c2 → x + (c1 + c2)).
+  3. Replacing certain arithmetic operations with cheaper alternatives (e.g., x * 2 → x << 1).
+
+- Prints debug messages for each transformation applied.
+- Can be invoked using `opt` with `-passes=instcombine-simple`.
+
+---
+
 ## Build & Run
 
-### 1. Build all plugins and tests with CMake
-
 ```bash
-mkdir -p build
-cd build
-cmake ..
-cmake --build .
+cd DCE/
+./run_dce_tests.sh
 ```
 
-## 2. Run all tests
-
-```bash
-make run_tests
-```
 - This will compile all plugins (like DeadCodeElimination.so) and run the tests from the tests/ folder.
-- Test outputs will be saved in build/tests_out/.
+- Test outputs will be saved in tests_out/.
+- Same can be applied for InstCombine/run_instcomb_tests.sh
 
 
