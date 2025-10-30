@@ -18,6 +18,7 @@ struct DSE : public FunctionPass {
 
     std::unordered_map<Value*, Value*> VariablesMap;
 
+    //pamtimo promenljive koje se ucitavaju iz mem
     void mapVariables(Function &F) {
         for (auto &BB : F) {
             for (auto &I : BB) {
@@ -38,12 +39,14 @@ struct DSE : public FunctionPass {
             for (auto InstIt = BB.rbegin(); InstIt != BB.rend(); ++InstIt) {
                 Instruction &I = *InstIt;
 
+                //naidjemo na load instr - preskacemo (nije mrtva jer koristi podatke iz mem)
                 if (isa<LoadInst>(&I))
                     continue;
 
+                //ako je store instr
                 if (auto *Store = dyn_cast<StoreInst>(&I)) {
                     Value *Ptr = Store->getPointerOperand();
-                    if (DeadVars.count(Ptr)) {
+                    if (DeadVars.count(Ptr)) {  //ako je vec u DeadVars znaci da cemo je kasnije pregaziti, pa je ovo dead store
                         ToRemove.push_back(&I);
                     }
                     DeadVars.insert(Ptr);
@@ -51,7 +54,7 @@ struct DSE : public FunctionPass {
                     for (unsigned i = 0; i < I.getNumOperands(); ++i) {
                         Value *Op = I.getOperand(i);
                         if (VariablesMap.count(Op)) {
-                            DeadVars.erase(VariablesMap[Op]);
+                            DeadVars.erase(VariablesMap[Op]);   //vise nije mrtva ako smo je sad procitali
                         }
                     }
                 }
