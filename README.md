@@ -2,12 +2,13 @@
 
 ## Project Overview
 
-This project implements a **framework for LLVM optimization plugins**, such as **Dead Code Elimination (DCE) plugin**, **InstCombine plugin**. The goal of the framework is to allow multiple custom LLVM passes to be developed, compiled, and run independently, enabling easy experimentation with compiler optimizations.
+This project implements a **framework for LLVM optimization plugins**, such as **Dead Code Elimination (DCE) plugin**, **InstCombine plugin**, **Dead Store Elimination plugin**. The goal of the framework is to allow multiple custom LLVM passes to be developed, compiled, and run independently, enabling easy experimentation with compiler optimizations.
 
 The current project includes:
 
 1. **Dead Code Elimination (DCE)** – removes unused and side-effect-free instructions from LLVM IR.
 2. **InstCombine** - optimizes and simplifies LLVM IR instructions by combining and transforming instruction sequences into more efficient forms without changing the program's semantics.
+3. **Dead Store Elimination (DSE)** - removes stores that are overwritten or never read.
 
 ---
 
@@ -32,6 +33,13 @@ The current project includes:
 
 - Prints debug messages for each transformation applied.
 - Can be invoked using `opt` with `-passes=instcombine-simple`.
+
+---
+
+### Dead store Elimination (DSE) Plugin
+  Criteria for elimination:
+  1. The stored value is never loaded before being overwritten or the variable goes out of scope.
+  2. The store does not have side effects.
 
 ---
 
